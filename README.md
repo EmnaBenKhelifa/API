@@ -136,6 +136,7 @@ def propertycreate():
     return render_template ('propertycreation.html')
 ```
 Go to http://localhost:5000/insertproperty and enter the information of the new property you want to create 
+
 Check if users table is not empty anymore by typing the next command in mysql prompt :
 
 ```
@@ -185,3 +186,10 @@ def propertyresult():
     return str(rv)
 ```
 Go to http://localhost:5000/result and check that properties are dispalyed for the city 'Tunis'
+
+## How to run the real estate APP
+
+To run this API:
+* You can clone the Github repository to your local folder by typing 'git clone  https://github.com/EmnaBenKhelifa/API ' in you Git bash terminal
+* Then, open a prompt window, go to the cloned folder and run 'app.py' (PyCharm is also a good option)
+* Go to http://localhost:5000/... and test
