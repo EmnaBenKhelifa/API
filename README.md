@@ -23,7 +23,7 @@ from flask_mysqldb import MySQL, MySQLdb
 Make the connection with mysql local server
 ```
 #Make connection with mysql localhost
-mysql=MySQLdb.connect("localhost", "root", "root", "flaskapp")
+mysql=MySQLdb.connect("localhost", "user", "database", "password")
 ```
 Create an empty database to store new users that we will be creating by compiling the next command in mysql prompt :
 ```
@@ -53,13 +53,12 @@ def signup():
         return 'sucess'
     return render_template ('sign_up.html')
 ```
+Go to http://localhost:5000/signup and enter the information of the new user you want to create
 Check if users table is not empty anymore by typing the next command in mysql prompt :
 
 ```
-SELECT * FROM USERS ;
+SELECT * FROM users ;
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ### Modify user's information
 
@@ -83,6 +82,14 @@ def usermodif():
         return 'sucess'
     return render_template ('usermodification.html')
 ```
+Go to http://localhost:5000/usermodification and modify the information of the existing user by entering its user id, name, birthday,...
+
+Check if users table had been modified by typing the next command in mysql prompt :
+
+```
+SELECT * FROM users ;
+```
+
 
 ### Create property by a user
 
@@ -91,8 +98,22 @@ The user will input the property informations as the:
 * The property description (Flat, appartment,...)
 * The city
 * ...
-The user will input it's user id and the property information as follows:
 
+As seen before, it is important to create a table in mysql local server in order to store property information. See the command below
+
+```
+CREATE TABLE flaskapp.property (
+`user_id` BIGINT,
+`property_id` BIGINT AUTO_INCREMENT,
+`property_name` VARCHAR(100) ,
+`description` VARCHAR(1000) ,
+`type` VARCHAR(100) ,
+`city` VARCHAR(100) ,
+`beds_number` VARCHAR(2) ,
+`beds_description` VARCHAR(1000),
+PRIMARY KEY (`property_id`));
+```
+The insertion of property information is relaized through this command :
 ```
 #Endpoint to create a property
 @app.route('/insertproperty',methods=['GET','POST'])
@@ -114,6 +135,13 @@ def propertycreate():
         return 'sucess'
     return render_template ('propertycreation.html')
 ```
+Go to http://localhost:5000/insertproperty and enter the information of the new property you want to create 
+Check if users table is not empty anymore by typing the next command in mysql prompt :
+
+```
+SELECT * FROM property ;
+```
+
 ### Modify the property information
 
 ```
@@ -138,6 +166,13 @@ def propertymodif():
         return 'sucess'
     return render_template ('propertymodification.html')
 ```
+Go to http://localhost:5000/propertymodification and modify the information of the existing property
+
+Check if users table had been modified by typing the next command in mysql prompt :
+
+```
+SELECT * FROM property ;
+```
 
 ### Display property to users
 ```
@@ -149,3 +184,4 @@ def propertyresult():
     rv = cur.fetchall()
     return str(rv)
 ```
+Go to http://localhost:5000/result and check that properties are dispalyed for the city 'Tunis'
