@@ -80,7 +80,13 @@ def propertymodif():
         return 'sucess'
     return render_template ('propertymodification.html')
 
-
+#Endpoint to display user_id results
+@app.route('/result', methods=['GET'])
+def propertyresult():
+    cur = mysql.cursor()
+    cur.execute(''' SELECT * FROM property WHERE city="Tunis" ''')
+    rv = cur.fetchall()
+    return str(rv)
 
 if __name__=='__main__':
     app.run(debug=True)
